@@ -37,6 +37,19 @@ void decode(char *str)
     printf("\n\n");
 }
 
+void encode(char *str)
+{
+    int size = strlen(str);
+    
+    for (int i = 0; i < size; i++)
+    {
+        int l = str[i] - 'A';
+        printf("%s", &table[l][0]);
+    }
+    
+    printf("\n\n");
+}
+
 int main()
 {
 
@@ -46,7 +59,7 @@ int main()
         printf("Digite uma base: ");
         scanf("%s", str);
         
-        decode(str);
+        encode(str);
     }
     
     
