@@ -1,30 +1,22 @@
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <math.h>
+#include <stdlib.h> 
 
-int main(){
-    int I = 1;
-    int num = 0;
-    int cont = 0;
+int main()
+{
+    int i = 1;
+    int cont = 1;
+    int *vetor;
     
-    while (I != 0){
-      scanf ("%d", &I);
-      if (I != 0){
-        num = num + I * pow(10, cont);   
-      }
-      cont = cont + 1;
+    while (i != 0){
+        scanf ("%d", &i);
+        vetor = (int*) realloc (vetor, cont * sizeof(int));
+        vetor[cont - 1] = i;
+        cont  = cont + 1;
     }
-    //printf ("%d\n", num);
-    //printf ("%d", cont);
-
-    int vetor[cont - 1];
-
-    for (int i = cont - 3; i >= 0; i--){
-      printf ("%d\n", (num % 10) + 1);
-      num = num / 10;
+    
+    for (int i = 0; i < cont - 2; i++){
+        printf ("%d\n", vetor[i] + 1);
     }
-    printf ("%d", num + 1);
 
-    return 1;
+    return 0;
 }
