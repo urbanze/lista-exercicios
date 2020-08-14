@@ -3,36 +3,44 @@
 #include <ctype.h>
 #include <string.h>
 
-int main(){
-    return 0;
-}
-
 int var1() {
     int n;
     int nn;
     int m;
     int idx;
+    int contador;
+    
     scanf ("%d", &n);
     scanf ("%d", &nn);
     
+    int cont[n];
     int tabela[n][nn];
     int aux [n][nn];
     
     for (int i = 0; i < n; i++){
+        contador = 0;
         for (int j = 0; j < nn; j++){
             scanf ("%d", &tabela[i][j]);
+            if (tabela[i][j] == 2){
+                contador = contador + 1;
+            }
+            else{
+                for (int k = 2; k < tabela[i][j]; k++){
+                    if (tabela[i][j] % k == 0){
+                        break;
+                    }
+                    if (k == tabela[i][j] - 1){
+                        contador = contador + 1;
+                    }
+                }
+            }
         }
+        cont[i] = contador;
     }
-    
-    /*for (int i = 0; i < n; i++){
-        for (int j = 0; j < 5; j++){
-            printf ("%d\n", tabela[i][j]);
-        }
-    }*/
       
     for (int i = 0; i < n; i++){
         for (int j = 0; j < nn; j++){
-            for (int k = 0; k < nn; k++){
+            for (int k = 0; k < n; k++){
                 if (k == 0){
                     m = tabela[i][0];
                     idx = 0;
@@ -107,12 +115,6 @@ int var2() {
         }
         cont[i] = contador;
     }
-    
-    /*for (int i = 0; i < n; i++){
-        for (int j = 0; j < 5; j++){
-            printf ("%d\n", tabela[i][j]);
-        }
-    }*/
       
     for (int i = 0; i < n; i++){
         for (int j = 0; j < nn; j++){
@@ -157,5 +159,13 @@ int var2() {
         }
     }
       
+    return 0;
+}
+
+int main(){
+    
+    var1();
+    var2();
+    
     return 0;
 }
