@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <math.h>
+#include <ctype.h>
+#include <string.h>
+
+int main() {
+    int n;
+    int nn;
+    int m;
+    int idx;
+    scanf ("%d", &n);
+    scanf ("%d", &nn);
+    
+    int tabela[n][nn];
+    int aux [n][nn];
+    
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < nn; j++){
+            scanf ("%d", &tabela[i][j]);
+        }
+    }
+    
+    /*for (int i = 0; i < n; i++){
+        for (int j = 0; j < 5; j++){
+            printf ("%d\n", tabela[i][j]);
+        }
+    }*/
+      
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < nn; j++){
+            for (int k = 0; k < nn; k++){
+                if (k == 0){
+                    m = tabela[i][0];
+                    idx = 0;
+                }
+                if (i % 2 == 1){
+                    if (tabela[i][k] > m){
+                        m = tabela[i][k];
+                        idx = k;
+                    }
+                }
+                else{
+                    if (tabela[i][k] < m){
+                        m = tabela[i][k];
+                        idx = k;
+                    }
+                }
+                if (k == nn - 1){
+                    aux[i][j] = m;
+                    if (i % 2 == 1){
+                        tabela[i][idx] = 0;
+                    }
+                    else{
+                        for (int l = 0; l < nn; l++){
+                            tabela[i][idx] = tabela[i][idx] + tabela[i][l];
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < nn; j++){
+            printf ("%d\n", aux[i][j]);
+        }
+    }
+      
+    return 0;
+}
