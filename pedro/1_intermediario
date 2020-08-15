@@ -2,41 +2,26 @@
 #include <math.h>
 #include <ctype.h>
 #include <string.h>
+#include <stdlib.h> 
 
-int var1() {
-    int n;
-    int nn;
-    int m;
-    int idx;
-    int contador;
+int **var1(int n, int nn, int **tabela, int *cont) {
+    int **copia;
     
-    scanf ("%d", &n);
-    scanf ("%d", &nn);
-    
-    int cont[n];
-    int tabela[n][nn];
-    int aux [n][nn];
+    copia = (int**)malloc(n * sizeof(int*));
+    for (int i = 0; i < n; i++){
+        copia[i] = (int*)malloc(nn * sizeof(int));
+    }
     
     for (int i = 0; i < n; i++){
-        contador = 0;
         for (int j = 0; j < nn; j++){
-            scanf ("%d", &tabela[i][j]);
-            if (tabela[i][j] == 2){
-                contador = contador + 1;
-            }
-            else{
-                for (int k = 2; k < tabela[i][j]; k++){
-                    if (tabela[i][j] % k == 0){
-                        break;
-                    }
-                    if (k == tabela[i][j] - 1){
-                        contador = contador + 1;
-                    }
-                }
-            }
+            copia[i][j] = tabela[i][j];
         }
-        cont[i] = contador;
     }
+    
+    int m;
+    int idx;
+    
+    int aux [n][nn];
       
     for (int i = 0; i < n; i++){
         for (int j = 0; j < nn; j++){
@@ -72,49 +57,35 @@ int var1() {
         }
     }
     
+    printf ("Primeira variação:\n");
     for (int i = 0; i < n; i++){
         for (int j = 0; j < nn; j++){
-            printf ("%d\n", aux[i][j]);
+            printf ("%d ", aux[i][j]);
         }
+        printf ("\n");
     }
       
-    return 0;
+    return copia;
 }
 
-int var2() {
-    int n;
-    int nn;
-    int m;
-    int idx;
-    int contador;
+int **var2(int n, int nn, int **tabela, int *cont) {
+    int **copia;
     
-    scanf ("%d", &n);
-    scanf ("%d", &nn);
-    
-    int cont[n];
-    int tabela[n][nn];
-    int aux [n][nn];
+    copia = (int**)malloc(n * sizeof(int*));
+    for (int i = 0; i < n; i++){
+        copia[i] = (int*)malloc(nn * sizeof(int));
+    }
     
     for (int i = 0; i < n; i++){
-        contador = 0;
         for (int j = 0; j < nn; j++){
-            scanf ("%d", &tabela[i][j]);
-            if (tabela[i][j] == 2){
-                contador = contador + 1;
-            }
-            else{
-                for (int k = 2; k < tabela[i][j]; k++){
-                    if (tabela[i][j] % k == 0){
-                        break;
-                    }
-                    if (k == tabela[i][j] - 1){
-                        contador = contador + 1;
-                    }
-                }
-            }
+            copia[i][j] = tabela[i][j];
         }
-        cont[i] = contador;
     }
+    
+    int m;
+    int idx;
+    
+    int aux [n][nn];
       
     for (int i = 0; i < n; i++){
         for (int j = 0; j < nn; j++){
@@ -153,19 +124,123 @@ int var2() {
         }
     }
     
+    printf ("Segunda variação:\n");
     for (int i = 0; i < n; i++){
         for (int j = 0; j < nn; j++){
-            printf ("%d\n", aux[i][j]);
+            printf ("%d ", aux[i][j]);
         }
+        printf ("\n");
+    }
+      
+    return copia;
+}
+
+int var3(int n, int nn, int **tabela, int *cont) {
+    int m;
+    int idx;
+    
+    int aux [n][nn];
+      
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < nn; j++){
+            for (int k = 0; k < nn; k++){
+                if (k == 0){
+                    m = tabela[i][0];
+                    idx = 0;
+                }
+                if (cont[i] < 10){
+                    if (tabela[i][k] > m){
+                        m = tabela[i][k];
+                        idx = k;
+                    }
+                }
+                if (cont[i] >= 10 && cont[i] <20){
+                    if (tabela[i][k] < m){
+                        m = tabela[i][k];
+                        idx = k;
+                    }
+                }
+                if (cont[i] >= 20){
+                    aux[i][k] = tabela[i][k];
+                }
+                if (k == nn - 1 && cont[i] < 20){
+                    aux[i][j] = m;
+                    if (cont[i] < 10){
+                        tabela[i][idx] = 0;
+                    }
+                    if (cont[i] >= 10){
+                        for (int l = 0; l < nn; l++){
+                            tabela[i][idx] = tabela[i][idx] + tabela[i][l];
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    printf ("Terceira variação:\n");
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < nn; j++){
+            printf ("%d ", aux[i][j]);
+        }
+        printf ("\n");
     }
       
     return 0;
 }
 
 int main(){
+    int n;
+    int nn;
+    int contador;
+    int contadorDiv;
+    int checa;
     
-    var1();
-    var2();
+    int **tabela;
+    
+    printf ("Digite o número de sequências: ");
+    scanf ("%d", &n);
+    printf ("Digite o número de elementos por sequência: ");
+    scanf ("%d", &nn);
+    
+    tabela = (int**)malloc(n * sizeof(int*));
+    for(int i = 0; i < n; i++){
+        tabela[i] = (int*)malloc(nn * sizeof(int));
+    }
+    
+    int cont[n];
+    int contDiv[n];
+    
+    for (int i = 0; i < n; i++){
+        contador = 0;
+        contadorDiv = 0;
+        checa = 0;
+        for (int j = 0; j < nn; j++){
+            contadorDiv = contadorDiv + 2;
+            printf ("Digite o %d elemento da %d sequência: ",j + 1, i + 1);
+            scanf ("%d", &tabela[i][j]);
+            if (tabela[i][j] == 2){
+                contador = contador + 1;
+            }
+            else{
+                for (int k = 2; k < tabela[i][j]; k++){
+                    if (tabela[i][j] % k == 0){
+                        checa = 1;
+                        contadorDiv = contadorDiv + 1;
+                    }
+                    if (k == tabela[i][j] - 1 && checa == 0){
+                        contador = contador + 1;
+                    }
+                }
+            }
+        }
+        cont[i] = contador;
+        contDiv[i] = contadorDiv;
+    }
+    
+    int **z = var1(n, nn, tabela, cont);
+    z = var2(n, nn, z, cont);
+    var3(n, nn, z, contDiv);
     
     return 0;
 }
