@@ -22,7 +22,6 @@ int main(){
         cont = cont + 1;
     }
     //printf ("%s", aux);
-    char teste[strlen(palavra1)];
     
     for (int i = 0; i < strlen(palavra1); i++){
         cont = 0;
@@ -30,8 +29,7 @@ int main(){
             giro[cont] = aux[i + j];
             cont = cont + 1;
         }
-        strcpy(teste, giro);
-        printf ("%s\n", teste);
+        printf ("%s\n", giro);
         for (int k = 0; k < strlen(palavra2); k++){
             if (palavra2[k] != giro[k]){
                 break;
