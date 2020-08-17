@@ -6,13 +6,13 @@
 #include <cstdio>
 
 int main(){
-    char palavra1[100];
-    char palavra2[100];
+    char palavra1[100] = {0};
+    char palavra2[100] = {0};
     scanf ("%s", palavra1);
     scanf ("%s", palavra2);
     
-    char giro[strlen(palavra1)];
-    char aux[2 * strlen(palavra1)];
+    char giro[strlen(palavra1) + 1] = {0};
+    char aux[2 * strlen(palavra1) + 1] = {0};
     int cont = 0;
     for (int i = 0; i < 2 * strlen(palavra1); i++){
         if (cont == strlen(palavra1)){
@@ -21,7 +21,7 @@ int main(){
         aux[i] = palavra1[cont];
         cont = cont + 1;
     }
-    //printf ("%s", aux);
+    printf ("%s\n", aux);
     
     for (int i = 0; i < strlen(palavra1); i++){
         cont = 0;
